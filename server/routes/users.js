@@ -27,11 +27,7 @@ router.get("/userInfo", auth, async(req, res) => {
 
 // Create a new User
 router.post("/", async(req, res) => {
-<<<<<<< HEAD
     // console.log(req.body)
-=======
-    console.log(req.body)
->>>>>>> 6d0d933e33aa0b71a0d8a7c35ddc2d2c3d52901a
 
     let validBody = validateUser(req.body); //validation the request of Create user
     if (validBody.error) {
@@ -43,18 +39,11 @@ router.post("/", async(req, res) => {
         user.password = await bcrypt.hash(user.password, 10); //Encryption the password of the user by bcrypt module
         await user.save(); // save the user/object in database
         user.password = "******"; //before send json need to hide the Encryption of the password
-<<<<<<< HEAD
         // res.status(201).json(user);
         res.status(201).json({ msg: 'User created' });
     } catch (err) {
         if (err.code == 11000) { // if the email is already (Email Uniqe)
             return res.status(400).json({ code: 11000, err_msg: "Email already exist" })
-=======
-        res.status(201).json(user);
-    } catch (err) {
-        if (err.code == 11000) { // if the email is already (Email Uniqe)
-            return res.status(400).json({ code: 11000, err_msg: "Email already in system try log in" })
->>>>>>> 6d0d933e33aa0b71a0d8a7c35ddc2d2c3d52901a
         }
         console.log(err);
         res.status(500).json(err);
@@ -72,31 +61,19 @@ router.post("/login", async(req, res) => {
     try {
         let user = await UserModel.findOne({ email: req.body.email });
         if (!user) {
-<<<<<<< HEAD
             return res.status(401).json({ err_msg: "email or password invalid" });
-=======
-            return res.status(401).json({ err_msg: "User/email not found in the system" });
->>>>>>> 6d0d933e33aa0b71a0d8a7c35ddc2d2c3d52901a
         }
         //compatibility passwords between req.body.password to user.password
         let validPassword = await bcrypt.compare(req.body.password, user.password); // compatibility passwords of bcrypt
         if (!validPassword) { //if not compatibility
-<<<<<<< HEAD
             return res.status(401).json({ err_msg: "email or password invalid" });
-=======
-            return res.status(401).json({ err_msg: "Password worng" });
->>>>>>> 6d0d933e33aa0b71a0d8a7c35ddc2d2c3d52901a
         }
         // create a token, the token get the user._id
         let token = genToken(user._id)
 
-<<<<<<< HEAD
 
 
         res.json({ token, role: user.role }); //res.json({ token }) equal to res.json({ token:token })
-=======
-        res.json({ token }); //res.json({ token }) equal to res.json({ token:token })
->>>>>>> 6d0d933e33aa0b71a0d8a7c35ddc2d2c3d52901a
         // At the end we will need to send a token to the user
     } catch (err) {
         console.log(err);

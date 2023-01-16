@@ -10,10 +10,7 @@ let userSchema = new mongoose.Schema({
     password: String,
     address: String,
     phone: String,
-<<<<<<< HEAD
     profileImg: String,
-=======
->>>>>>> 6d0d933e33aa0b71a0d8a7c35ddc2d2c3d52901a
     role: {
         type: String,
         default: "user"
@@ -45,13 +42,9 @@ exports.validateUser = (_reqBody) => { //validation of create a user with reques
         password: Joi.string().min(3).max(100).required(),
         // allow - Allows you to send an empty property
         address: Joi.string().min(2).max(150).allow(null, ""), //allow (Must not send)
-<<<<<<< HEAD
         phone: Joi.string().min(2).max(20).allow(null, ""),
         profileImg: Joi.string().min(2).max(9999).allow(null, "")
 
-=======
-        phone: Joi.string().min(2).max(20).allow(null, "")
->>>>>>> 6d0d933e33aa0b71a0d8a7c35ddc2d2c3d52901a
     })
     return joiSchema.validate(_reqBody); // return the validation (joi object) with request from the body 
 }
