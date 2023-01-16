@@ -16,8 +16,10 @@ router.get("/authUser", auth, async(req, res) => {
 //A router that will be used to return the user's details
 router.get("/userInfo", auth, async(req, res) => {
     try {
-        let data = await UserModel.findOne({ _id: req.tokenData._id }, { password: 0 }) //findOne --> Returns one object 
-        res.json(data);
+        let data = await UserModel.findOne({ _id: req.tokenData._id }).populate('todos_id')
+            //findOne --> Returns one object 
+
+        res.json({ data });
     } catch (err) {
         console.log(err);
         res.status(500).json(err)

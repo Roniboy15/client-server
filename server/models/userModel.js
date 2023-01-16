@@ -19,7 +19,9 @@ let userSchema = new mongoose.Schema({
     date_created: {
         type: Date,
         default: Date.now() //using date functions
-    }
+    },
+    todos_id: [{ type: mongoose.Types.ObjectId, ref: 'todos' }]
+
 })
 
 
