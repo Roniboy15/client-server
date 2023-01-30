@@ -12,7 +12,7 @@ function App() {
   const getUser = async () => {
     const { data } = await apiGet(USER_INFO)
     console.log(data)
-    setUser(data)
+    setUser(data.user)
   }
 // when user logout
 const logout = async () => {

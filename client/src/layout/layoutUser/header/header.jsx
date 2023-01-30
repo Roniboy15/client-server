@@ -15,6 +15,7 @@ const navigation = [
 const menu = [
   { name: 'Login', href: '/login' },
   { name: 'SignUp', href: '/signUp' },
+  { name: 'To Do', href: '/todo' },
 ]
 const menuProfile = [
   { name: 'ToDo List', href: '/todo' },

@@ -10,16 +10,21 @@ router.get("/", (req, res) => { //Get request users
 
 // A route that will be used to test if the token is still valid or reliable
 router.get("/authUser", auth, async(req, res) => {
-    res.json({ status: "ok", msg: "token valid" })
+    try {
+        res.json({ status: "ok", msg: "token valid", role: req.tokenData.role })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ err_msg: "Something went wrong" });
+    }
 })
 
 //A router that will be used to return the user's details
 router.get("/userInfo", auth, async(req, res) => {
     try {
-        let data = await UserModel.findOne({ _id: req.tokenData._id }).populate('todos_id')
+        let user = await UserModel.findOne({ _id: req.tokenData._id }).populate('todos_id')
             //findOne --> Returns one object 
 
-        res.json({ data });
+        res.json({ user });
     } catch (err) {
         console.log(err);
         res.status(500).json(err)
@@ -70,8 +75,8 @@ router.post("/login", async(req, res) => {
         if (!validPassword) { //if not compatibility
             return res.status(401).json({ err_msg: "email or password invalid" });
         }
-        // create a token, the token get the user._id
-        let token = genToken(user._id)
+        // create a token, send a user obj and take => {_id,role}
+        let token = genToken(user)
 
 
 

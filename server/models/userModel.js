@@ -30,11 +30,11 @@ exports.UserModel = mongoose.model("users", userSchema);
 
 
 //Create Token of the user
-exports.genToken = (_id) => { //the function get UserID
-        let token = jwt.sign({ _id }, `${process.env.TOKEN_SECRET}`, { expiresIn: "600mins" }); //Token properties
-        //(jwt.sign({ ID of User }, `SecretWord`, { expiresIn: "Time to expired" }))
-        return token; // return the token created
-    }
+exports.genToken = ({ _id, role }) => { //the function get UserID
+    let token = jwt.sign({ _id, role }, `${process.env.TOKEN_SECRET}`, { expiresIn: "600mins" }); //Token properties
+    //(jwt.sign({ ID of User }, `SecretWord`, { expiresIn: "Time to expired" }))
+    return token; // return the token created
+}
     //validation create user
 exports.validateUser = (_reqBody) => { //validation of create a user with request from the body
     let joiSchema = Joi.object({ // Create a joi object
